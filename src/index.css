@@ -1,10 +1,11 @@
+/* --- Global Styles --- */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #1a1a1a;
 }
 
 body {
@@ -16,53 +17,152 @@ body {
 }
 
 #root {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
   width: 100%;
 }
 
-h1 {
+/* --- Dashboard Grid Layout --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns */
+  grid-template-areas:
+    "header header header header"
+    "metrics-voltage metrics-current metrics-power metrics-energy" /* Added energy metric */
+    "chart-voltage chart-voltage chart-current chart-current" /* Re-arranged charts */
+    "chart-power chart-power chart-energy chart-energy"     /* Re-arranged charts */
+    "side-panel side-panel footer footer"; /* Re-arranged footer/side-panel */
+  gap: 20px;
+}
+
+/* --- Card Base Styles --- */
+.card {
+  background-color: #242424;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* --- Grid Area Assignments --- */
+.header { grid-area: header; text-align: center; }
+.metric-voltage { grid-area: metrics-voltage; }
+.metric-current { grid-area: metrics-current; }
+.metric-power { grid-area: metrics-power; }
+.metric-energy { grid-area: metrics-energy; }
+.chart-voltage { grid-area: chart-voltage; }
+.chart-current { grid-area: chart-current; }
+.chart-power { grid-area: chart-power; }
+.chart-energy { grid-area: chart-energy; }
+.side-panel { grid-area: side-panel; display: flex; flex-direction: column; gap: 20px;}
+.footer { grid-area: footer; }
+
+/* --- Component-Specific Styles --- */
+.header h1 {
   font-size: 2.5em;
-  line-height: 1.1;
+  margin: 0;
   color: #646cff;
 }
 
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.metric-card {
-  background-color: #2f2f2f;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.metric-card:hover {
-    transform: translateY(-5px);
-}
-
 .metric-card h3 {
-  margin-top: 0;
+  margin: 0 0 10px 0;
   font-size: 1.2rem;
-  color: #9c9c9c;
+  color: #a0a0a0;
 }
 
 .metric-card p {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0;
+  margin: 0;
   color: #fff;
 }
 
-.chart-container {
-    background-color: #2f2f2f;
-    padding: 1rem;
-    border-radius: 8px;
+.chart-card h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.gauge-container {
+  position: relative;
+  text-align: center;
+}
+.gauge-container h4 {
+    margin-bottom: 1rem;
+}
+.gauge-label {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.insights-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.insights-panel li {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.insights-panel .insight-warning {
+    border-left: 4px solid #ffcc00;
+}
+.insights-panel .insight-alert {
+    border-left: 4px solid #ff4d4d;
+}
+
+.data-exporter .date-pickers {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.data-exporter button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #646cff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.data-exporter button:hover {
+  background-color: #535bf2;
+}
+.react-datepicker-wrapper input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}
+
+/* --- Responsive Layout for Smaller Screens --- */
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            "header header"
+            "metrics-voltage metrics-current"
+            "metrics-power metrics-energy"
+            "chart-voltage chart-voltage"
+            "chart-current chart-current"
+            "chart-power chart-power"
+            "chart-energy chart-energy"
+            "side-panel side-panel"
+            "footer footer";
+    }
 }
