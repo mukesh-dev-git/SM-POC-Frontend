@@ -16,10 +16,13 @@ const AnalyticsPage = () => {
         const fetchAllData = async () => {
             setLoading(true);
             try {
+                // Construct the full URL using the environment variable
+                const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
                 const [anomalyRes, forecastRes, summaryRes] = await Promise.all([
-                    fetch('/api/anomalies'),
-                    fetch('/api/forecast'),
-                    fetch('/api/summary')
+                    fetch(`${API_BASE}/api/anomalies`),
+                    fetch(`${API_BASE}/api/forecast`),
+                    fetch(`${API_BASE}/api/summary`)
                 ]);
                 const anomalyJson = await anomalyRes.json();
                 const forecastJson = await forecastRes.json();

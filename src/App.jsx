@@ -21,7 +21,8 @@ ChartJS.register(
 );
 
 // IMPORTANT: Replace this with your backend URL!
-const API_URL = 'https://sm-poc-backend.onrender.com/data';
+const API_URL = `${import.meta.env.VITE_API_BASE_URL || ''}/data`;
+//const API_URL = 'https://sm-poc-backend.onrender.com/data';
 
 function App() {
   const [allData, setAllData] = useState([]);
