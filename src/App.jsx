@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import {
-  Chart as ChartJS, CategoryScale, LinearScale, PointElement,
-  LineElement, Title, Tooltip, Legend, ArcElement
-} from 'chart.js';
-
 // Import all our new components
 import MetricCard from './components/MetricCard';
 import LineChart from './components/LineChart';
@@ -13,12 +8,6 @@ import RssiGauge from './components/RssiGauge';
 import InsightsPanel from './components/InsightsPanel';
 import DataExporter from './components/DataExporter';
 import './index.css';
-
-// Register all the Chart.js components we're using
-ChartJS.register(
-  CategoryScale, LinearScale, PointElement, LineElement, 
-  Title, Tooltip, Legend, ArcElement
-);
 
 // IMPORTANT: Replace this with your backend URL!
 const API_URL = `${import.meta.env.VITE_API_BASE_URL || ''}/data`;
